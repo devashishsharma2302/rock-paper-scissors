@@ -70,23 +70,20 @@ def gameplay_status_check_view(request):
     gameplay_id = request.query_params.get('gameplay_id')
     player_id = request.query_params.get('player_id')
     
-    try:
-        game_session = GameSession.objects.get(id=game_id)
-        gameplay = Gameplay.objects.get(id=gameplay_id)
-        if player_id == game_session.player_1_id:
-            # Player 1
-            if not gameplay.player_1_move:
-                return JsonResponse({"state": 'IDLE'})
-            if not gameplay.player_2_move:
-                return JsonResponse({"state": 'WAITING'})
-            return JsonResponse({"state": get_game_result(gameplay.player_1_move, gameplay.player_2_move)})
-        if player_id == game_session.player_2_id:
-            # Player 2
-            if not gameplay.player_2_move:
-                return JsonResponse({"state": 'IDLE'})
-            if not gameplay.player_1_move:
-                return JsonResponse({"state": 'WAITING'})
-            return JsonResponse({"state": get_game_result(gameplay.player_2_move, gameplay.player_1_move)})
-        return HttpResponse(status=400)
-    except:
-        return HttpResponse(status=400)
+    game_session = GameSession.objects.get(id=game_id)
+    gameplay = Gameplay.objects.get(id=gameplay_id)
+    if player_id == game_session.player_1_id:
+        # Player 1
+        if not gameplay.player_1_move:
+            return JsonResponse({"state": 'IDLE'})
+        if not gameplay.player_2_move:
+            return JsonResponse({"state": 'WAITING'})
+        return JsonResponse({"state": get_game_result(gameplay.player_1_move, gameplay.player_2_move)})
+    if player_id == game_session.player_2_id:
+        # Player 2
+        if not gameplay.player_2_move:
+            return JsonResponse({"state": 'IDLE'})
+        if not gameplay.player_1_move:
+            return JsonResponse({"state": 'WAITING'})
+        return JsonResponse({"state": get_game_result(gameplay.player_2_move, gameplay.player_1_move)})
+    return HttpResponse(status=400)

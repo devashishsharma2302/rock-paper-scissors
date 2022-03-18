@@ -70,6 +70,77 @@ body: `{game_id: 1234, move: 'R/P/S', player_id: 'xxxx'}`
  
 GET /gameplay-status-check?game_id=1234&gameplay_id=2233&player_id=xxxx :
 
-  response `{id: 2233, status: 'WIN/LOSE/TIE/IDLE/WAITING'}}`
+  response `{id: 2233, state: 'WIN/LOSE/TIE/IDLE/WAITING'}}`
+
+
+
+
+Steps to run:
+
+To run the backend server:
+
+Activate virtualenv (steps below for mac)
+
+```
+cd backend
+python3 -m venv env
+source env/bin/activate
+
+```
+
+Install dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+Run migrations
+
+```
+python manage.py migrate
+```
+
+Run Server
+
+```
+python manage.py runserver
+```
+
+The server should be running at 127.0.0.1:8000  (assuming to be working with a local sqlite DB)
+
+
+To run frontend (Make sure to have node installed to latest version preferably):
+
+```
+cd frontend
+
+yarn install
+
+yarn start
+```
+
+Visit 127.0.0.1:3000 on your browser. and from another tab/incognito.
+
+
+
+
+
+
+**Final Summary:**
+
+Around 30 minutes were spent in making the initial design and plan.
+
+After a total of 3 hours, I had the backend ready, tested via http client, and a basic but incomplete frontend  setup. 
+
+Spent about 40 more minutes to finalise the sync and make it working. 
+
+
+If I had more time, I would have also done the following:
+
+- On the BE side, followed a TDD approach and taken care about implementing authentication and authorisation of the APIs, implemented the "play vs CPU" feature, made all the write actions atomic. 
+
+- On the FE side, have a cleaner UX design, not have any inline styles, have more reusable components, moved the api call logic in custom hooks, written tests.
+
+
 
 
